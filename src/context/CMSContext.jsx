@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { INITIAL_CMS_DATA } from '../data/initialData';
 
 export const CMSContext = createContext();
@@ -8,6 +8,17 @@ export function CMSProvider({ children }) {
     // Force loading from initialData.js to ensure updates reflect immediately during development
     return INITIAL_CMS_DATA;
   });
+  const [registrationCount, setRegistrationCount] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/registrations')
+      .then(response => {
+        if (!response.ok) throw new Error('Unable to load registration count');
+        return response.json();
+      })
+      .then(({ count }) => setRegistrationCount(count))
+      .catch(error => console.error(error));
+  }, []);
 
   const saveCmsData = (newData) => {
     setCmsData(newData);
@@ -74,18 +85,26 @@ export function CMSProvider({ children }) {
     saveCmsData(newData);
   };
 
-  const addRegistration = (regData) => {
-    const newReg = {
-      ...regData,
-      id: 'REG-' + Math.floor(1000 + Math.random() * 9000),
-      registeredAt: new Date().toLocaleString()
-    };
-    const newData = {
-      ...cmsData,
-      registrations: [newReg, ...(cmsData.registrations || [])]
-    };
-    saveCmsData(newData);
-    return newReg;
+  const addRegistration = async (regData) => {
+    const response = await fetch('/api/registrations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(regData)
+    });
+
+    const result = await response.json();
+    if (!response.ok) {
+      const error = new Error(result.error || 'Registration failed');
+      error.code = result.code;
+      throw error;
+    }
+
+    setRegistrationCount(result.count);
+    setCmsData(currentData => ({
+      ...currentData,
+      registrations: [result.registration, ...(currentData.registrations || [])]
+    }));
+    return result.registration;
   };
 
   const resetToDefaults = () => {
@@ -96,6 +115,7 @@ export function CMSProvider({ children }) {
     <CMSContext.Provider
       value={{
         cmsData,
+        registrationCount,
         updateHero,
         addSpeaker,
         updateSpeaker,

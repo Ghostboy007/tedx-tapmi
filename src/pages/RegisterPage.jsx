@@ -2,8 +2,8 @@ import React, { useContext, useState } from 'react';
 import { CMSContext } from '../context/CMSContext';
 
 export function RegisterPage() {
-  const { cmsData, addRegistration } = useContext(CMSContext);
-  const totalRegistrations = (cmsData.registrations || []).length;
+  const { registrationCount, addRegistration } = useContext(CMSContext);
+  const totalRegistrations = registrationCount ?? 0;
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -34,22 +34,26 @@ export function RegisterPage() {
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      const reg = addRegistration({
+    setErrors({});
+    try {
+      const reg = await addRegistration({
         fullName: formData.fullName,
         email: formData.email,
         rollNo: formData.rollNo || 'N/A',
         phone: formData.phone,
         cohort: formData.cohort
       });
-      setIsSubmitting(false);
       setTicket(reg);
-    }, 1200);
+    } catch (error) {
+      setErrors({ form: error.message });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -63,7 +67,7 @@ export function RegisterPage() {
       
       <div className="text-center space-y-3 max-w-xl mx-auto">
         <span className="inline-block px-4 py-1.5 bg-[#E62B1E]/15 border border-[#E62B1E]/40 text-[#E62B1E] font-black text-xs uppercase tracking-widest rounded-full">
-          🎟️ {totalRegistrations + 120} Delegate Seats Registered
+          🎟️ {totalRegistrations} Delegate Seats Registered
         </span>
         <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight font-heading">Register For TEDxTapmi</h1>
         <p className="text-xs sm:text-sm text-gray-400">
@@ -74,6 +78,7 @@ export function RegisterPage() {
       <div className="bg-[#0E0E14] border border-[#262638] rounded-3xl p-6 sm:p-12 shadow-2xl relative tedx-neon-border">
         {!ticket ? (
           <form onSubmit={handleSubmit} className="space-y-6">
+            {errors.form && <p className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300">{errors.form}</p>}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1.5">Full Name *</label>
