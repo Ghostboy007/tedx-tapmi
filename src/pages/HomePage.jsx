@@ -99,7 +99,7 @@ export function HomePage({ setCurrentPage }) {
           </div>
 
           <div className="lg:col-span-5 space-y-6">
-            <div className="relative bg-[#0D0D14] border border-[#E62B1E]/40 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl tedx-neon-border">
+            <div className="relative bg-[#0D0D14]/75 backdrop-blur-md border border-white/25 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl tedx-neon-border">
               <div className="relative aspect-video rounded-2xl overflow-hidden bg-black">
                 <img
                   src="/assets/venue_photo.jpg"
@@ -115,9 +115,9 @@ export function HomePage({ setCurrentPage }) {
               </div>
 
               <div className="space-y-3">
-                <div className="flex justify-between items-center text-xs font-mono text-gray-400 border-b border-[#1E1E2A] pb-2">
-                  <span className="font-bold uppercase text-[#E62B1E]">⏱️ Next Edition Countdown</span>
-                  <span>{hero.date || "Oct 24, 2026"}</span>
+                <div className="flex justify-between items-center text-xs font-mono text-white/80 border-b border-white/20 pb-2 drop-shadow-[0_2px_5px_rgba(0,0,0,0.9)]">
+                  <span className="font-bold uppercase text-[#FF4B3E]">⏱️ Next Edition Countdown</span>
+                  <span className="font-bold text-white">{hero.date || "Oct 24, 2026"}</span>
                 </div>
                 <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
                   {[
@@ -126,9 +126,9 @@ export function HomePage({ setCurrentPage }) {
                     { label: 'MINS', val: timeLeft.minutes },
                     { label: 'SECS', val: timeLeft.seconds }
                   ].map((t, idx) => (
-                    <div key={idx} className="bg-[#151520] border border-[#272738] p-2.5 rounded-xl">
-                      <div className="text-xl sm:text-2xl font-black text-white font-mono">{String(t.val).padStart(2, '0')}</div>
-                      <div className="text-[9px] font-bold text-[#E62B1E] tracking-widest mt-0.5">{t.label}</div>
+                    <div key={idx} className="bg-[#151520]/90 border border-white/15 p-2.5 rounded-xl shadow-lg">
+                      <div className="text-xl sm:text-2xl font-black text-white font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">{String(t.val).padStart(2, '0')}</div>
+                      <div className="text-[9px] font-black text-[#FF4B3E] tracking-widest mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">{t.label}</div>
                     </div>
                   ))}
                 </div>
