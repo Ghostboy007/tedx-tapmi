@@ -7,8 +7,8 @@ export const INITIAL_CMS_DATA = {
     title: "THE FUTURE IS HUMAN",
     subtitle: "Ideas Worth Spreading at TAPMI",
     description: "Join us for an inspiring day of groundbreaking keynotes, disruptive innovations, and powerful stories from trailblazers shaping the future of technology, business, design, and humanity.",
-    date: "October 11, 2026",
-    time: "09:00 AM IST",
+    date: "11th October",
+    time: "2 PM-5 PM",
     location: "Seminar Hall, TAPMI",
     themeTagline: "3rd Edition"
   },

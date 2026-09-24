@@ -137,29 +137,37 @@ export function RegisterPage() {
 
     // Venue information
     doc.setFillColor(250, 250, 250);
-    doc.roundedRect(35, 220, 140, 28, 4, 4, 'F');
+    doc.roundedRect(35, 216, 140, 42, 4, 4, 'F');
 
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(50, 50, 50);
-    doc.text('VENUE', 45, 231);
+    doc.text('DATE', 45, 226);
 
     doc.setFont('helvetica', 'normal');
-    doc.text('Seminar Hall, TAPMI', 45, 241);
+    doc.text('11th October', 75, 226);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('TIME', 45, 237);
+
+    doc.setFont('helvetica', 'normal');
+    doc.text('2 PM-5 PM', 75, 237);
+
+    doc.setFont('helvetica', 'bold');
+    doc.text('VENUE', 45, 248);
+
+    doc.setFont('helvetica', 'normal');
+    doc.text('Seminar Hall, TAPMI', 75, 248);
 
     // Verification instructions
     doc.setFontSize(9);
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(230, 43, 30);
-    doc.text('ENTRY VERIFICATION', 35, 263);
+    doc.text('ENTRY VERIFICATION', 35, 271);
 
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(70, 70, 70);
-    doc.text(
-      'Please carry your valid college ID for entry verification.',
-      35,
-      271
-    );
+    doc.text('Please carry your valid college ID for entry verification.', 35, 279);
 
     // Download
     const safeName = String(registration.fullName)
