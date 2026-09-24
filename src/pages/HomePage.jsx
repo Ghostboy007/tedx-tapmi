@@ -5,6 +5,14 @@ export function HomePage({ setCurrentPage }) {
   const { cmsData } = useContext(CMSContext);
   const hero = cmsData.hero || {};
   const pastSpeakers = (cmsData.speakers || []).slice(0, 3);
+  const mysterySpeakers = [
+    '/assets/bhaswar_paul_v2.jpg',
+    '/assets/khyati_madaan.png',
+    '/assets/rohit_misra.png',
+    '/assets/sandeep_pathe_v3.jpg',
+    '/assets/somasree_bose_v2.jpg',
+    '/assets/gallery/media_1786119310946.jpg'
+  ];
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -187,7 +195,37 @@ export function HomePage({ setCurrentPage }) {
         </div>
       </section>
 
-      {/* 4. INTERACTIVE QUIZ CTA */}
+      {/* 4. MYSTERY SPEAKERS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="space-y-2 border-b border-[#222230] pb-6">
+          <span className="text-xs font-black uppercase tracking-widest text-[#E62B1E]">Mystery Speakers</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-heading">Six voices. One reveal.</h2>
+          <p className="text-sm text-gray-400 max-w-2xl">A first look at the speakers waiting to take the TEDxTAPMI stage.</p>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
+          {mysterySpeakers.map((image, index) => (
+            <div
+              key={image}
+              className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-[#2B2B3E] bg-[#0E0E14] shadow-xl hover:border-[#E62B1E] transition-all duration-300 hover:-translate-y-1"
+            >
+              <img
+                src={image}
+                alt={`Mystery speaker ${index + 1}`}
+                className="w-full h-full object-cover grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-3">
+                <span className="text-[10px] font-black uppercase tracking-widest text-white">
+                  Mystery Speaker {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 5. INTERACTIVE QUIZ CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-gradient-to-r from-[#140505] via-[#1F0707] to-[#0A0A0E] border border-[#E62B1E]/50 rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 tedx-neon-border">
           <div className="space-y-3 text-left max-w-2xl">
