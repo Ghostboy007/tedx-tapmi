@@ -253,7 +253,7 @@ export function RegisterPage() {
 
         {!ticket ? (
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form noValidate onSubmit={handleSubmit} className="space-y-6">
 
             {errors.form && (
               <p className="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm font-semibold text-red-300">
@@ -335,9 +335,6 @@ export function RegisterPage() {
                 <input
                   type="text"
                   maxLength={6}
-                  minLength={6}
-                  pattern="[0-9]{2}[A-Za-z][0-9]{3}"
-                  required
                   autoCapitalize="characters"
                   value={formData.rollNo}
                   onChange={(e) =>
