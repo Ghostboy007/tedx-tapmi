@@ -6,11 +6,11 @@ export function HomePage({ setCurrentPage }) {
   const hero = cmsData.hero || {};
   const pastSpeakers = (cmsData.speakers || []).slice(0, 3);
   const mysterySpeakers = [
-    '/assets/bhaswar_paul_v2.jpg',
-    '/assets/khyati_madaan.png',
-    '/assets/rohit_misra.png',
-    '/assets/sandeep_pathe_v3.jpg',
-    '/assets/somasree_bose_v2.jpg',
+    '/assets/Male Mystery Speaker.png',
+    '/assets/Male Mystery Speaker.png',
+    '/assets/Male Mystery Speaker.png',
+    '/assets/Female Mystery Speaker.png',
+    '/assets/Female Mystery Speaker.png',
     '/assets/gallery/media_1786119310946.jpg'
   ];
 
