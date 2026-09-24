@@ -38,8 +38,8 @@ export function RegisterPage() {
 
     if (!rollNo) {
       errs.rollNo = "Roll number is required.";
-    } else if (rollNo.length !== 6 || !/^\d{2}[A-Z][A-Z0-9]{3}$/.test(rollNo)) {
-      errs.rollNo = "Use 6 characters: 2 digits, a letter, then 3 letters or digits.";
+    } else if (rollNo.length !== 6 || !/^\d{2}[A-Z]\d{3}$/.test(rollNo)) {
+      errs.rollNo = "Roll number must be exactly 6 characters, for example 26A129.";
     }
 
     if (!phone) {
