@@ -46,7 +46,7 @@ export function HomePage({ setCurrentPage }) {
         className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-12 px-4 sm:px-6 lg:px-8 bg-cover bg-center"
         style={{ backgroundImage: "url('/assets/Background 1.png')" }}
       >
-        <div className="absolute inset-0 bg-[#0E0E14]/80 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-[#0E0E14]/40" />
         <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#E62B1E]/20 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#E62B1E]/15 rounded-full blur-[160px] pointer-events-none" />
 
