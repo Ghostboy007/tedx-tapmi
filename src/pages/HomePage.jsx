@@ -99,57 +99,46 @@ export function HomePage({ setCurrentPage }) {
           </div>
 
           <div className="lg:col-span-5 space-y-6">
-            <div className="relative bg-[#0D0D14]/65 backdrop-blur-md border border-white/25 rounded-3xl p-5 sm:p-7 shadow-2xl tedx-neon-border">
-              <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
-                {[
-                  { label: 'DAYS', val: timeLeft.days },
-                  { label: 'HOURS', val: timeLeft.hours },
-                  { label: 'MINS', val: timeLeft.minutes },
-                  { label: 'SECS', val: timeLeft.seconds }
-                ].map((t, idx) => (
-                  <div key={idx} className="bg-[#151520]/90 border border-white/15 p-2.5 rounded-xl shadow-lg">
-                    <div className="text-xl sm:text-2xl font-black text-white font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">{String(t.val).padStart(2, '0')}</div>
-                    <div className="text-[9px] font-black text-[#FF4B3E] tracking-widest mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">{t.label}</div>
+            <div className="relative bg-[#0D0D14]/75 backdrop-blur-md border border-white/25 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl tedx-neon-border">
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black">
+                <img
+                  src="/assets/venue_photo.jpg"
+                  alt="TEDx Stage"
+                  className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex items-end p-4">
+                  <div className="text-xs text-gray-300 font-bold space-y-1">
+                    <p className="text-[#E62B1E] uppercase tracking-wider text-[10px]">📍 Event Venue</p>
+                    <p className="text-white">{hero.location || "Seminar Hall, TAPMI"}</p>
                   </div>
-                ))}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <div className="flex justify-between items-center text-xs font-mono text-white/80 border-b border-white/20 pb-2 drop-shadow-[0_2px_5px_rgba(0,0,0,0.9)]">
+                  <span className="font-bold uppercase text-[#FF4B3E]">⏱️ Next Edition Countdown</span>
+                  <span className="font-bold text-white">{hero.date || "Oct 24, 2026"}</span>
+                </div>
+                <div className="grid grid-cols-4 gap-2 sm:gap-3 text-center">
+                  {[
+                    { label: 'DAYS', val: timeLeft.days },
+                    { label: 'HOURS', val: timeLeft.hours },
+                    { label: 'MINS', val: timeLeft.minutes },
+                    { label: 'SECS', val: timeLeft.seconds }
+                  ].map((t, idx) => (
+                    <div key={idx} className="bg-[#151520]/90 border border-white/15 p-2.5 rounded-xl shadow-lg">
+                      <div className="text-xl sm:text-2xl font-black text-white font-mono drop-shadow-[0_2px_6px_rgba(0,0,0,0.95)]">{String(t.val).padStart(2, '0')}</div>
+                      <div className="text-[9px] font-black text-[#FF4B3E] tracking-widest mt-0.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.95)]">{t.label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. EVENT DETAILS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-[#0D0D14]/80 border border-white/15 rounded-3xl p-5 sm:p-8 shadow-2xl">
-          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black">
-            <img
-              src="/assets/venue_photo.jpg"
-              alt="TEDx stage at the event venue"
-              className="w-full h-full object-cover opacity-20 hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-          <div className="space-y-5">
-            <span className="text-xs font-black uppercase tracking-widest text-[#E62B1E]">TEDxTAPMI 2026</span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white font-heading">Ideas Worth Spreading</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
-              <div className="rounded-xl border border-white/15 bg-white/5 p-4">
-                <span className="block text-[10px] font-black uppercase tracking-widest text-[#FF4B3E]">Date</span>
-                <span className="mt-1 block font-bold text-white">{hero.date || '11th October'}</span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/5 p-4">
-                <span className="block text-[10px] font-black uppercase tracking-widest text-[#FF4B3E]">Time</span>
-                <span className="mt-1 block font-bold text-white">2 PM-5 PM</span>
-              </div>
-              <div className="rounded-xl border border-white/15 bg-white/5 p-4">
-                <span className="block text-[10px] font-black uppercase tracking-widest text-[#FF4B3E]">Venue</span>
-                <span className="mt-1 block font-bold text-white">{hero.location || 'Seminar Hall, TAPMI'}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. STATS TICKER */}
+      {/* 2. STATS TICKER */}
       <section className="border-y border-[#E62B1E]/30 bg-[#0A0A0E] py-8 px-4">
         <div className="max-w-4xl mx-auto grid grid-cols-2 gap-8 text-center">
           {[
