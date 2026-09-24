@@ -10,8 +10,11 @@ function getPool() {
       throw new Error('DATABASE_URL is not configured');
     }
 
+    const databaseUrl = new URL(process.env.DATABASE_URL);
+    databaseUrl.searchParams.set('sslmode', 'verify-full');
+
     pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: databaseUrl.toString(),
       ssl: { rejectUnauthorized: false }
     });
   }
@@ -44,9 +47,9 @@ function validateRegistration(registration) {
 
   if (
     (registration.rollNo || '').length !== 6 ||
-    !/^\d{2}[A-Za-z]\d{3}$/.test(registration.rollNo || '')
+    !/^\d{2}[A-Za-z][A-Za-z0-9]{3}$/.test(registration.rollNo || '')
   ) {
-    return 'Roll number must be exactly 6 characters, for example 26A129.';
+    return 'Use 6 characters: 2 digits, a letter, then 3 letters or digits.';
   }
 
   const phoneDigits = registration.phone.replace(/\D/g, '');
