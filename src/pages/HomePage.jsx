@@ -11,7 +11,7 @@ export function HomePage({ setCurrentPage }) {
     '/assets/Male Mystery Speaker.png',
     '/assets/Female Mystery Speaker.png',
     '/assets/Female Mystery Speaker.png',
-    '/assets/gallery/media_1786119310946.jpg'
+    '/assets/Female Mystery Speaker.png'
   ];
 
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
