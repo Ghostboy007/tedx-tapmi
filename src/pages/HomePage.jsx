@@ -75,10 +75,10 @@ export function HomePage({ setCurrentPage }) {
               </div>
             </div>
 
-            <p className="text-lg sm:text-xl font-bold text-white/80 tracking-wide max-w-2xl">
+            <p className="text-lg sm:text-xl font-bold text-white tracking-wide drop-shadow-[0_2px_5px_rgba(0,0,0,0.85)] max-w-2xl">
               {hero.subtitle || "Ideas Worth Spreading at TAPMI Manipal"}
             </p>
-            <p className="text-xs sm:text-sm text-white/60 max-w-xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-white leading-relaxed drop-shadow-[0_2px_5px_rgba(0,0,0,0.85)] max-w-xl">
               {hero.description}
             </p>
 
