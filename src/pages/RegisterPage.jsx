@@ -25,21 +25,27 @@ export function RegisterPage() {
       errs.fullName = "Full name is required.";
     }
 
-    if (!formData.email.trim()) {
+    const email = formData.email.trim().toLowerCase();
+    const rollNo = formData.rollNo.trim().toUpperCase();
+    const phone = formData.phone.trim();
+    const phoneDigits = phone.replace(/\D/g, '');
+
+    if (!email) {
       errs.email = "Email address is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      errs.email = "Invalid email format.";
+    } else if (!/^[^\s@]+@learner\.manipal\.edu$/.test(email)) {
+      errs.email = "Use your college email ending in @learner.manipal.edu.";
     }
 
-    // Roll number is now mandatory
-    if (!formData.rollNo.trim()) {
+    if (!rollNo) {
       errs.rollNo = "Roll number is required.";
+    } else if (rollNo.length !== 6 || !/^\d{2}[A-Z]\d{3}$/.test(rollNo)) {
+      errs.rollNo = "Roll number must be exactly 6 characters, for example 26A129.";
     }
 
-    if (!formData.phone.trim()) {
+    if (!phone) {
       errs.phone = "Phone number is required.";
-    } else if (formData.phone.replace(/\D/g, '').length < 10) {
-      errs.phone = "Enter a valid 10-digit mobile number.";
+    } else if (phone.length > 13 || !/^[+\d][\d\s()-]*$/.test(phone) || phoneDigits.length < 10 || phoneDigits.length > 13) {
+      errs.phone = "Enter a valid phone number with 10 to 13 digits (maximum 13 characters).";
     }
 
     setErrors(errs);
@@ -295,6 +301,9 @@ export function RegisterPage() {
 
                 <input
                   type="email"
+                  maxLength={80}
+                  required
+                  autoComplete="email"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({
@@ -302,7 +311,7 @@ export function RegisterPage() {
                       email: e.target.value
                     })
                   }
-                  placeholder="aarav@tapmi.edu.in"
+                  placeholder="aarav@learner.manipal.edu"
                   className={`w-full px-4 py-3 bg-[#151520] border ${
                     errors.email
                       ? 'border-red-500'
@@ -325,14 +334,19 @@ export function RegisterPage() {
 
                 <input
                   type="text"
+                  maxLength={6}
+                  minLength={6}
+                  pattern="\\d{2}[A-Za-z]\\d{3}"
+                  required
+                  autoCapitalize="characters"
                   value={formData.rollNo}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      rollNo: e.target.value
+                      rollNo: e.target.value.toUpperCase()
                     })
                   }
-                  placeholder="e.g. 250108899"
+                  placeholder="e.g. 26A129"
                   className={`w-full px-4 py-3 bg-[#151520] border ${
                     errors.rollNo
                       ? 'border-red-500'
@@ -355,6 +369,9 @@ export function RegisterPage() {
 
                 <input
                   type="tel"
+                  maxLength={13}
+                  inputMode="tel"
+                  autoComplete="tel"
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({
@@ -362,7 +379,7 @@ export function RegisterPage() {
                       phone: e.target.value
                     })
                   }
-                  placeholder="+91 98765 43210"
+                  placeholder="e.g. +919876543210"
                   className={`w-full px-4 py-3 bg-[#151520] border ${
                     errors.phone
                       ? 'border-red-500'

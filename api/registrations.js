@@ -38,12 +38,25 @@ function validateRegistration(registration) {
     return 'Enter a valid full name.';
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(registration.email)) {
-    return 'Enter a valid email address.';
+  if (!/^[^\s@]+@learner\.manipal\.edu$/.test(registration.email)) {
+    return 'Use your college email ending in @learner.manipal.edu.';
   }
 
-  if (registration.phone.replace(/\D/g, '').length < 10) {
-    return 'Enter a valid phone number.';
+  if (
+    (registration.rollNo || '').length !== 6 ||
+    !/^\d{2}[A-Za-z]\d{3}$/.test(registration.rollNo || '')
+  ) {
+    return 'Roll number must be exactly 6 characters, for example 26A129.';
+  }
+
+  const phoneDigits = registration.phone.replace(/\D/g, '');
+  if (
+    registration.phone.length > 13 ||
+    !/^[+\d][\d\s()-]*$/.test(registration.phone) ||
+    phoneDigits.length < 10 ||
+    phoneDigits.length > 13
+  ) {
+    return 'Enter a valid phone number with 10 to 13 digits and no more than 13 characters.';
   }
 
   const allowedCohorts = [
@@ -67,9 +80,8 @@ export default async function handler(request, response) {
   }
 
   try {
-    const database = getPool();
-
     if (request.method === 'GET') {
+      const database = getPool();
       const result = await database.query('SELECT COUNT(*)::int AS count FROM registrations');
       return sendJson(response, 200, { count: result.rows[0].count, capacity: 250 });
     }
@@ -80,6 +92,7 @@ export default async function handler(request, response) {
       return sendJson(response, 400, { code: 'INVALID_INPUT', error: validationError });
     }
 
+    const database = getPool();
     const client = await database.connect();
     try {
       await client.query('BEGIN');
