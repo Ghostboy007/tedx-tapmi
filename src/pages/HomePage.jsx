@@ -75,10 +75,10 @@ export function HomePage({ setCurrentPage }) {
               </div>
             </div>
 
-            <p className="text-lg sm:text-xl font-bold text-gray-300 tracking-wide max-w-2xl">
+            <p className="text-lg sm:text-xl font-bold text-white/80 tracking-wide max-w-2xl">
               {hero.subtitle || "Ideas Worth Spreading at TAPMI Manipal"}
             </p>
-            <p className="text-xs sm:text-sm text-gray-400 max-w-xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-white/60 max-w-xl leading-relaxed">
               {hero.description}
             </p>
 
@@ -107,7 +107,7 @@ export function HomePage({ setCurrentPage }) {
                   className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex items-end p-4">
-                  <div className="text-xs text-gray-300 font-bold space-y-1">
+                  <div className="text-xs text-white/80 font-bold space-y-1">
                     <p className="text-[#E62B1E] uppercase tracking-wider text-[10px]">📍 Event Venue</p>
                     <p className="text-white">{hero.location || "Seminar Hall, TAPMI"}</p>
                   </div>
