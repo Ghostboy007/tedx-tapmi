@@ -336,7 +336,7 @@ export function RegisterPage() {
                   type="text"
                   maxLength={6}
                   minLength={6}
-                  pattern="\\d{2}[A-Za-z]\\d{3}"
+                  pattern="[0-9]{2}[A-Za-z][0-9]{3}"
                   required
                   autoCapitalize="characters"
                   value={formData.rollNo}
