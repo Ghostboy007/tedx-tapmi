@@ -98,7 +98,7 @@ export function HomePage({ setCurrentPage }) {
             </div>
           </div>
 
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 lg:justify-self-end space-y-6 w-full lg:max-w-[520px]">
             <div className="relative bg-[#0D0D14]/75 backdrop-blur-md border border-white/25 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl tedx-neon-border">
               <div className="relative aspect-video rounded-2xl overflow-hidden bg-black">
                 <img
