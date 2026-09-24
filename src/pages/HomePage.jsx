@@ -153,7 +153,37 @@ export function HomePage({ setCurrentPage }) {
         </div>
       </section>
 
-      {/* 3. PAST SPEAKERS SPOTLIGHT */}
+      {/* 3. MYSTERY SPEAKERS */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="space-y-3 border-b border-[#222230] pb-6">
+          <span className="text-xs font-black uppercase tracking-widest text-[#E62B1E]">Mystery Speakers</span>
+          <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight font-heading">Six voices. One reveal.</h2>
+          <p className="text-sm sm:text-base text-gray-400 max-w-2xl">A first look at the speakers waiting to take the TEDxTAPMI stage.</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {mysterySpeakers.map((image, index) => (
+            <div
+              key={`${image}-${index}`}
+              className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-[#2B2B3E] bg-[#0E0E14] shadow-2xl hover:border-[#E62B1E] transition-all duration-300 hover:-translate-y-2"
+            >
+              <img
+                src={image}
+                alt={`Mystery speaker ${index + 1}`}
+                className="w-full h-full object-cover grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <span className="text-xs font-black uppercase tracking-widest text-white">
+                  Mystery Speaker {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 4. PAST SPEAKERS SPOTLIGHT */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#222230] pb-6">
           <div className="space-y-2">
@@ -189,36 +219,6 @@ export function HomePage({ setCurrentPage }) {
                 <h3 className="text-xl font-bold text-white group-hover:text-[#E62B1E] transition-colors">{sp.name}</h3>
                 <p className="text-xs text-gray-400 font-semibold">{sp.role}</p>
                 <p className="text-xs text-gray-300 italic pt-2 border-t border-[#1E1E2B]">"{sp.topic}"</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. MYSTERY SPEAKERS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="space-y-2 border-b border-[#222230] pb-6">
-          <span className="text-xs font-black uppercase tracking-widest text-[#E62B1E]">Mystery Speakers</span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight font-heading">Six voices. One reveal.</h2>
-          <p className="text-sm text-gray-400 max-w-2xl">A first look at the speakers waiting to take the TEDxTAPMI stage.</p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-5">
-          {mysterySpeakers.map((image, index) => (
-            <div
-              key={image}
-              className="group relative aspect-[4/5] overflow-hidden rounded-2xl border border-[#2B2B3E] bg-[#0E0E14] shadow-xl hover:border-[#E62B1E] transition-all duration-300 hover:-translate-y-1"
-            >
-              <img
-                src={image}
-                alt={`Mystery speaker ${index + 1}`}
-                className="w-full h-full object-cover grayscale-[35%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-3">
-                <span className="text-[10px] font-black uppercase tracking-widest text-white">
-                  Mystery Speaker {String(index + 1).padStart(2, '0')}
-                </span>
               </div>
             </div>
           ))}
