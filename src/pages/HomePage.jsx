@@ -125,7 +125,7 @@ export function HomePage({ setCurrentPage }) {
             <img
               src="/assets/venue_photo.jpg"
               alt="TEDx stage at the event venue"
-              className="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700"
+              className="w-full h-full object-cover opacity-20 hover:scale-105 transition-transform duration-700"
             />
           </div>
           <div className="space-y-5">
