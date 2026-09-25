@@ -3,8 +3,8 @@ import { CMSContext } from '../context/CMSContext';
 import jsPDF from 'jspdf';
 
 export function RegisterPage() {
-  const { registrationCount, addRegistration } = useContext(CMSContext);
-  const { hero = {} } = useContext(CMSContext);
+  const { registrationCount, addRegistration, cmsData } = useContext(CMSContext);
+  const hero = cmsData.hero || {};
   const totalRegistrations = registrationCount ?? 0;
 
   const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ export function RegisterPage() {
     return Object.keys(errs).length === 0;
   };
 
-  const downloadRegistrationPDF = async (registration) => {
+  const downloadRegistrationPDF = (registration) => {
     const pageWidth = 297;
     const pageHeight = 210;
     const margin = 12;
@@ -62,42 +62,11 @@ export function RegisterPage() {
     const slate = [148, 151, 160];
     const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-    const poster = await new Promise((resolve) => {
-      const image = new Image();
-      image.onload = () => {
-        const targetWidth = 1600;
-        const targetHeight = 420;
-        const canvas = document.createElement('canvas');
-        canvas.width = targetWidth;
-        canvas.height = targetHeight;
-        const sourceHeight = image.width / (targetWidth / targetHeight);
-        const sourceY = Math.max(0, (image.height - sourceHeight) / 2);
-        canvas.getContext('2d').drawImage(
-          image,
-          0,
-          sourceY,
-          image.width,
-          Math.min(sourceHeight, image.height),
-          0,
-          0,
-          targetWidth,
-          targetHeight
-        );
-        resolve(canvas.toDataURL('image/png'));
-      };
-      image.onerror = () => resolve(null);
-      image.src = '/assets/Background 1.png';
-    });
-
     doc.setFillColor(...ink);
     doc.rect(0, 0, pageWidth, pageHeight, 'F');
 
-    if (poster) {
-      doc.addImage(poster, 'PNG', 0, 0, pageWidth, 78);
-    }
-
     doc.setFillColor(8, 8, 12);
-    doc.rect(0, 0, pageWidth, 78, 'F');
+    doc.rect(0, 0, 142, 38, 'F');
     doc.setFillColor(8, 8, 12);
     doc.rect(0, 52, pageWidth, 26, 'F');
     doc.setFillColor(...red);
