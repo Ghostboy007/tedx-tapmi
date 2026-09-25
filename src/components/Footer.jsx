@@ -1,4 +1,5 @@
 import React from 'react';
+import { Instagram, Linkedin, Mail } from 'lucide-react';
 
 export function Footer({ setCurrentPage }) {
   const scrollToPage = (pageId) => {
@@ -56,13 +57,38 @@ export function Footer({ setCurrentPage }) {
           </div>
 
           {/* Col 3: Social & Contact */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-gray-300 font-heading">Connect With Us</h4>
-            <ul className="space-y-3 text-sm text-gray-300">
-              <li><a href="https://www.instagram.com/matrix_tapmi?igsh=OTN3dXdqMHRnN3V1" target="_blank" rel="noreferrer" className="hover:text-[#E62B1E] transition-colors">📷 Instagram @matrix_tapmi</a></li>
-              <li><a href="https://www.linkedin.com/company/matrix-tapmi/" target="_blank" rel="noreferrer" className="hover:text-[#E62B1E] transition-colors">🔗 LinkedIn /matrix-tapmi</a></li>
-              <li><span className="text-gray-400">✉️ tedx.tapmi@manipal.edu</span></li>
-            </ul>
+          <div className="footer-social space-y-4">
+            <h3 className="text-xs font-black uppercase tracking-wider text-gray-300 font-heading">Connect With Us</h3>
+            <div className="footer-icons flex items-center gap-3">
+              <a
+                href="https://www.linkedin.com/in/matrixtapmi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Matrix TAPMI on LinkedIn"
+                title="LinkedIn"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2A2A35] text-gray-300 transition-all hover:border-[#E62B1E] hover:bg-[#E62B1E] hover:text-white hover:-translate-y-1"
+              >
+                <Linkedin size={19} strokeWidth={2} />
+              </a>
+              <a
+                href="https://www.instagram.com/matrix_tapmi/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Matrix TAPMI on Instagram"
+                title="Instagram"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2A2A35] text-gray-300 transition-all hover:border-[#E62B1E] hover:bg-[#E62B1E] hover:text-white hover:-translate-y-1"
+              >
+                <Instagram size={19} strokeWidth={2} />
+              </a>
+              <a
+                href="mailto:matrix@tapmi.edu.in"
+                aria-label="Email Matrix TAPMI"
+                title="Email"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2A2A35] text-gray-300 transition-all hover:border-[#E62B1E] hover:bg-[#E62B1E] hover:text-white hover:-translate-y-1"
+              >
+                <Mail size={19} strokeWidth={2} />
+              </a>
+            </div>
           </div>
         </div>
 
