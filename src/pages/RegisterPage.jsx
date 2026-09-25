@@ -4,6 +4,7 @@ import jsPDF from 'jspdf';
 
 export function RegisterPage() {
   const { registrationCount, addRegistration } = useContext(CMSContext);
+  const { hero = {} } = useContext(CMSContext);
   const totalRegistrations = registrationCount ?? 0;
 
   const [formData, setFormData] = useState({
@@ -52,130 +53,150 @@ export function RegisterPage() {
     return Object.keys(errs).length === 0;
   };
 
-  const downloadRegistrationPDF = (registration) => {
-    const doc = new jsPDF();
+  const downloadRegistrationPDF = async (registration) => {
+    const pageWidth = 297;
+    const pageHeight = 210;
+    const margin = 12;
+    const red = [230, 43, 30];
+    const ink = [10, 10, 14];
+    const slate = [148, 151, 160];
+    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
-    // Page border
-    doc.setDrawColor(230, 43, 30);
-    doc.setLineWidth(1.5);
-    doc.rect(15, 15, 180, 267);
+    const poster = await new Promise((resolve) => {
+      const image = new Image();
+      image.onload = () => {
+        const targetWidth = 1600;
+        const targetHeight = 420;
+        const canvas = document.createElement('canvas');
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
+        const sourceHeight = image.width / (targetWidth / targetHeight);
+        const sourceY = Math.max(0, (image.height - sourceHeight) / 2);
+        canvas.getContext('2d').drawImage(
+          image,
+          0,
+          sourceY,
+          image.width,
+          Math.min(sourceHeight, image.height),
+          0,
+          0,
+          targetWidth,
+          targetHeight
+        );
+        resolve(canvas.toDataURL('image/png'));
+      };
+      image.onerror = () => resolve(null);
+      image.src = '/assets/Background 1.png';
+    });
 
-    // Header
-    doc.setFillColor(230, 43, 30);
-    doc.rect(15, 15, 180, 35, 'F');
+    doc.setFillColor(...ink);
+    doc.rect(0, 0, pageWidth, pageHeight, 'F');
+
+    if (poster) {
+      doc.addImage(poster, 'PNG', 0, 0, pageWidth, 78);
+    }
+
+    doc.setFillColor(8, 8, 12);
+    doc.rect(0, 0, pageWidth, 78, 'F');
+    doc.setFillColor(8, 8, 12);
+    doc.rect(0, 52, pageWidth, 26, 'F');
+    doc.setFillColor(...red);
+    doc.rect(0, 76, pageWidth, 2, 'F');
 
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(24);
-    doc.text('TEDxTAPMI', 105, 31, { align: 'center' });
-
-    doc.setFontSize(11);
-    doc.text('2026 Student Registration Pass', 105, 42, {
-      align: 'center'
-    });
-
-    // Confirmation
-    doc.setTextColor(20, 20, 20);
-    doc.setFontSize(18);
-    doc.text('Registration Confirmed', 105, 70, {
-      align: 'center'
-    });
-
-    // Registration number
-    doc.setFillColor(245, 245, 245);
-    doc.roundedRect(35, 82, 140, 25, 4, 4, 'F');
-
+    doc.setFontSize(25);
+    doc.text('TEDx', margin, 22);
+    doc.setTextColor(...red);
+    doc.text('TAPMI', margin + 32, 22);
+    doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(90, 90, 90);
-    doc.text('REGISTRATION NUMBER', 105, 92, {
-      align: 'center'
-    });
-
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(230, 43, 30);
-    doc.text(String(registration.id), 105, 101, {
-      align: 'center'
-    });
-
-    // Student details
-    doc.setTextColor(40, 40, 40);
+    doc.text('OFFICIAL ATTENDEE PASS', margin, 30);
     doc.setFontSize(10);
+    doc.setTextColor(210, 212, 218);
+    doc.text('2026', pageWidth - margin, 19, { align: 'right' });
+    doc.setFontSize(7);
+    doc.setTextColor(...red);
+    doc.text('INDEPENDENTLY ORGANIZED TED EVENT', pageWidth - margin, 27, { align: 'right' });
+
+    doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
-
-    doc.text('STUDENT DETAILS', 35, 125);
-
-    doc.setDrawColor(220, 220, 220);
-    doc.line(35, 129, 175, 129);
-
-    // Name
-    doc.setFontSize(9);
+    doc.setFontSize(16);
+    doc.text(hero.title || '', margin, 62);
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
-    doc.text('FULL NAME', 35, 142);
+    doc.setFontSize(7);
+    doc.setTextColor(220, 222, 228);
+    doc.text('Ideas worth spreading at TAPMI Manipal', margin, 69);
 
-    doc.setFontSize(13);
+    doc.setDrawColor(55, 57, 65);
+    doc.setLineWidth(0.25);
+    for (let x = 0; x <= pageWidth; x += 12) doc.line(x, 78, x, pageHeight);
+    for (let y = 84; y <= pageHeight; y += 12) doc.line(0, y, pageWidth, y);
+
+    doc.setFillColor(18, 18, 24);
+    doc.roundedRect(margin, 86, 174, 87, 3, 3, 'F');
+    doc.setDrawColor(65, 66, 76);
+    doc.roundedRect(margin, 86, 174, 87, 3, 3, 'S');
+    doc.setFillColor(22, 22, 29);
+    doc.roundedRect(194, 86, 91, 87, 3, 3, 'F');
+    doc.setDrawColor(...red);
+    doc.roundedRect(194, 86, 91, 87, 3, 3, 'S');
+
+    doc.setTextColor(...red);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 30, 30);
-    doc.text(String(registration.fullName), 35, 151);
+    doc.setFontSize(7);
+    doc.text('YOUR PASS IS CONFIRMED', 20, 97);
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(18);
+    doc.text('REGISTRATION', 20, 110);
+    doc.setTextColor(...red);
+    doc.setFontSize(17);
+    doc.text(String(registration.id), 20, 121);
+    doc.setDrawColor(...red);
+    doc.setLineWidth(0.8);
+    doc.line(20, 127, 179, 127);
 
-    // Roll number
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
-    doc.text('ROLL NUMBER', 35, 169);
+    const drawField = (label, value, x, y, width, size = 10) => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(6.5);
+      doc.setTextColor(...slate);
+      doc.text(label, x, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(size);
+      doc.setTextColor(255, 255, 255);
+      const lines = doc.splitTextToSize(String(value || 'N/A'), width);
+      doc.text(lines.slice(0, 2), x, y + 6, { lineHeightFactor: 1.05 });
+    };
 
-    doc.setFontSize(13);
+    drawField('ATTENDEE', registration.fullName, 20, 140, 72, 11);
+    drawField('ROLL NUMBER', registration.rollNo, 104, 140, 62, 11);
+    drawField('EMAIL', registration.email, 20, 158, 145, 8);
+
+    doc.setTextColor(...red);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(30, 30, 30);
-    doc.text(String(registration.rollNo), 35, 178);
+    doc.setFontSize(7);
+    doc.text('EVENT DETAILS', 202, 98);
+    doc.setDrawColor(75, 76, 86);
+    doc.setLineWidth(0.25);
+    doc.line(202, 102, 277, 102);
+    drawField('DATE', hero.date, 202, 113, 74, 10);
+    drawField('TIME', hero.time, 202, 130, 74, 10);
+    drawField('VENUE', hero.location, 202, 147, 74, 9);
 
-    // Email
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(100, 100, 100);
-    doc.text('EMAIL', 35, 196);
-
-    doc.setFontSize(11);
-    doc.setTextColor(30, 30, 30);
-    doc.text(String(registration.email), 35, 205);
-
-    // Venue information
-    doc.setFillColor(250, 250, 250);
-    doc.roundedRect(35, 216, 140, 42, 4, 4, 'F');
-
-    doc.setFontSize(9);
+    doc.setFillColor(230, 43, 30);
+    doc.rect(12, 181, 273, 17, 'F');
+    doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(50, 50, 50);
-    doc.text('DATE', 45, 226);
-
+    doc.setFontSize(7);
+    doc.text('ENTRY VERIFICATION', 20, 188);
     doc.setFont('helvetica', 'normal');
-    doc.text('11th October', 75, 226);
+    doc.setFontSize(7);
+    doc.text('Please carry your valid college ID for entry verification.', 20, 193);
+    doc.setTextColor(100, 101, 110);
+    doc.setFontSize(6);
+    doc.text('TEDxTAPMI  |  OFFICIAL ATTENDEE PASS  |  2026', pageWidth - margin, 205, { align: 'right' });
 
-    doc.setFont('helvetica', 'bold');
-    doc.text('TIME', 45, 237);
-
-    doc.setFont('helvetica', 'normal');
-    doc.text('2 PM-5 PM', 75, 237);
-
-    doc.setFont('helvetica', 'bold');
-    doc.text('VENUE', 45, 248);
-
-    doc.setFont('helvetica', 'normal');
-    doc.text('Seminar Hall, TAPMI', 75, 248);
-
-    // Verification instructions
-    doc.setFontSize(9);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(230, 43, 30);
-    doc.text('ENTRY VERIFICATION', 35, 271);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(70, 70, 70);
-    doc.text('Please carry your valid college ID for entry verification.', 35, 279);
-
-    // Download
     const safeName = String(registration.fullName)
       .replace(/[^a-z0-9]/gi, '_')
       .toLowerCase();
