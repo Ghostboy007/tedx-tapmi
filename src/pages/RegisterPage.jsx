@@ -60,6 +60,7 @@ export function RegisterPage() {
     const red = [230, 43, 30];
     const ink = [10, 10, 14];
     const slate = [148, 151, 160];
+    const eventTheme = hero.title || 'THE FUTURE IS HUMAN';
     const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
 
     doc.setFillColor(...ink);
@@ -91,8 +92,12 @@ export function RegisterPage() {
 
     doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(...red);
+    doc.text('THEME', margin, 51);
+    doc.setTextColor(255, 255, 255);
     doc.setFontSize(16);
-    doc.text(hero.title || '', margin, 62);
+    doc.text(eventTheme, margin, 62);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
     doc.setTextColor(220, 222, 228);
