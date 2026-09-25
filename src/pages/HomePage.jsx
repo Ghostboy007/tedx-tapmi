@@ -104,7 +104,7 @@ export function HomePage({ setCurrentPage }) {
                 <img
                   src="/assets/venue_photo.jpg"
                   alt="TEDx Stage"
-                  className="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-contain sm:object-cover opacity-85 hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent flex items-end p-4">
                   <div className="text-xs text-white/80 font-bold space-y-1">
